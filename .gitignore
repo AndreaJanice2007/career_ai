@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+
+# Trained model artifact, rebuilt by backend/train.py
+backend/artifacts/
+
+# Accounts, sessions and saved career paths (contains password hashes)
+backend/data/
+
+node_modules/
+frontend/dist/
+
+# API server output captured by start.ps1
+logs/
+
+_verify*.py
+_check_*.py

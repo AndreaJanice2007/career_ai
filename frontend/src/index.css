@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --color-ink-950: #05060f;
+  --color-ink-900: #0a0c1b;
+  --color-ink-800: #121531;
+  --color-ink-700: #1c2047;
+
+  --color-violet-glow: #8b5cf6;
+  --color-cyan-glow: #22d3ee;
+  --color-rose-glow: #fb7185;
+  --color-lime-glow: #a3e635;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-950 text-slate-200 font-sans antialiased;
+    /* `clip` rather than `hidden`: hidden would make the body a scroll
+       container, which breaks scrollIntoView and position:sticky children. */
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    /* Skips the touch delay browsers reserve for double-tap zoom. */
+    touch-action: manipulation;
+  }
+
+  /* iOS zooms the page in when a focused field is under 16px, which leaves the
+     layout scrolled sideways. Only the mobile size is bumped. */
+  @media (max-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
+
+  ::selection {
+    @apply bg-violet-500/40 text-white;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-cyan-glow);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 0.06) inset,
+      0 30px 60px -25px rgb(0 0 0 / 0.9);
+  }
+
+  .glass-soft {
+    @apply rounded-2xl border border-white/8 bg-white/[0.03] backdrop-blur-md;
+  }
+
+  /* Keeps fixed bars clear of notches and home indicators. */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-white via-violet-200 to-cyan-200 bg-clip-text text-transparent;
+  }
+}
+
+/* Scrollbars inside the skill pickers, kept subtle so the panels stay clean. */
+.scroll-slim::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: rgb(148 163 184 / 0.25);
+  border-radius: 999px;
+}
+
+.scroll-slim::-webkit-scrollbar-thumb:hover {
+  background: rgb(148 163 184 / 0.45);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.09),
+    transparent
+  );
+  animation: shimmer 1.8s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .shimmer::after {
+    animation: none;
+  }
+}
