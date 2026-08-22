@@ -17,3 +17,5 @@ logs/
 
 _verify*.py
 _check_*.py
+.vercel
+.env*
