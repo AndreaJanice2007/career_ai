@@ -1,6 +1,21 @@
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-jupyter
+# Runtime dependencies for the deployed Python function.
+#
+# Versions are pinned to the ones that produced backend/artifacts/model.joblib:
+# a joblib pickle is tied to the scikit-learn and numpy that wrote it, so an
+# unpinned rebuild can install a runtime that refuses to load it.
+#
+# pandas is deliberately absent. Nothing in the artifact is a pandas object and
+# the serving path never imports it; scikit-learn only reaches for it when it
+# happens to be installed. Leaving it out keeps the function inside Vercel's
+# 250 MB limit.
+#
+# The notebook's own dependencies moved to requirements-notebook.txt.
+# Local development still uses backend/requirements.txt.
+
+fastapi==0.141.1
+pydantic==2.13.4
+uvicorn==0.52.4
+joblib==1.5.3
+numpy==2.2.6
+scipy==1.15.3
+scikit-learn==1.7.2

@@ -1,8 +1,10 @@
 __pycache__/
 *.pyc
 
-# Trained model artifact, rebuilt by backend/train.py
-backend/artifacts/
+# Trained model artifact, rebuilt by backend/train.py. The served model is an
+# exception: at 1.1 MB it ships with the deployment instead of being downloaded.
+backend/artifacts/*
+!backend/artifacts/model.joblib
 
 # Accounts, sessions and saved career paths (contains password hashes)
 backend/data/

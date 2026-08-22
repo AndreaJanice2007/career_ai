@@ -1,0 +1,11 @@
+# Dependencies for AI_career_recommendation.ipynb, moved out of requirements.txt
+# because that file is what the deployment installs.
+#
+#   python -m pip install -r requirements-notebook.txt
+
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+jupyter
